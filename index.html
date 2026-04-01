@@ -4,570 +4,180 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TheAdamEffect | Adam Syed</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; }
-
-    :root {
-      --bg: #03060d;
-      --bg-soft: rgba(8, 12, 22, 0.72);
-      --card: rgba(255, 255, 255, 0.08);
-      --card-strong: rgba(255, 255, 255, 0.12);
-      --border: rgba(255, 255, 255, 0.14);
-      --text: #f5f8ff;
-      --muted: #c2cadb;
-      --soft: #8f9ab0;
-      --blue: #76d6ff;
-      --violet: #9f88ff;
-      --white-glow: rgba(255,255,255,0.22);
-      --shadow: 0 25px 70px rgba(0,0,0,0.45);
-    }
-
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
-      min-height: 100vh;
       font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background:
-        linear-gradient(to bottom, rgba(2,5,12,0.45), rgba(2,5,12,0.82) 45%, rgba(2,5,12,0.95) 100%),
-        url('assets/profile.jpg') center top/cover no-repeat fixed;
+      background: #05070d;
+      color: white;
       overflow-x: hidden;
-      position: relative;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 8%, rgba(170, 220, 255, 0.25), transparent 22%),
-        radial-gradient(circle at 50% 16%, rgba(255,255,255,0.08), transparent 30%),
-        radial-gradient(circle at 18% 24%, rgba(118, 214, 255, 0.08), transparent 22%),
-        radial-gradient(circle at 82% 24%, rgba(159, 136, 255, 0.08), transparent 22%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(to right, rgba(0,0,0,0.75), rgba(0,0,0,0.12) 18%, rgba(0,0,0,0.12) 82%, rgba(0,0,0,0.75));
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .grain {
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.05) 0.7px, transparent 0.7px);
-      background-size: 18px 18px;
-      opacity: 0.12;
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .shell {
-      position: relative;
-      z-index: 1;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 24px 20px 48px;
-    }
-
-    .nav {
+    .container {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 22px;
-      flex-wrap: wrap;
+      min-height: 100vh;
     }
 
-    .brand {
+    /* LEFT SIDE (CONTENT) */
+    .left {
+      width: 50%;
+      padding: 80px 60px;
       display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(118,214,255,0.92), rgba(159,136,255,0.92));
-      box-shadow: 0 0 28px rgba(118,214,255,0.25);
-    }
-
-    .brand-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.05rem;
-      letter-spacing: 0.02em;
-    }
-
-    .brand-sub {
-      color: var(--soft);
-      font-size: 0.88rem;
-      margin-top: 2px;
-    }
-
-    .hero {
-      position: relative;
-      min-height: 82vh;
-      display: grid;
-      align-items: end;
-      padding: 26px 0 10px;
-    }
-
-    .hero-content {
-      width: min(760px, 100%);
-      margin-top: 220px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(14px);
-      color: #edf4ff;
-      font-size: 0.92rem;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .pill-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffffff, var(--blue));
-      box-shadow: 0 0 18px rgba(118,214,255,0.75);
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
     }
 
     h1 {
-      margin: 0;
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(3.2rem, 10vw, 7.4rem);
-      line-height: 0.93;
-      letter-spacing: -0.05em;
-      max-width: 760px;
-      text-transform: uppercase;
-    }
-
-    .headline-glow {
-      display: inline-block;
-      color: white;
-      text-shadow:
-        0 0 16px rgba(255,255,255,0.18),
-        0 0 38px rgba(118,214,255,0.12);
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
 
     .sub {
-      margin: 18px 0 0;
-      color: var(--muted);
-      font-size: 1.03rem;
-      line-height: 1.85;
-      max-width: 620px;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+      color: #aab3c5;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      max-width: 500px;
     }
 
-    .cta-row {
+    .buttons {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
+      gap: 15px;
+      margin-bottom: 40px;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 20px;
-      border-radius: 18px;
-      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 12px;
       text-decoration: none;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-      border: 1px solid transparent;
-      backdrop-filter: blur(14px);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
+      font-weight: 600;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(118,214,255,0.92), rgba(159,136,255,0.92));
-      color: #06101b;
-      box-shadow: 0 14px 40px rgba(118,214,255,0.22);
+      background: linear-gradient(135deg, #ffffff, #7ad8ff);
+      color: black;
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.12);
-      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
     }
 
-    .stats-ribbon {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      max-width: 860px;
-    }
-
-    .stat {
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 20px;
-      padding: 16px;
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-
-    .stat span {
-      color: var(--soft);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 18px;
-      margin-top: 30px;
-    }
-
-    .card {
-      position: relative;
-      background: linear-gradient(180deg, rgba(10,16,30,0.66), rgba(10,16,30,0.46));
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 24px;
-      backdrop-filter: blur(20px);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, rgba(255,255,255,0.05), transparent 35%, transparent 65%, rgba(255,255,255,0.04));
-      pointer-events: none;
-    }
-
-    h2 {
-      margin: 0 0 14px;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: -0.03em;
-    }
-
-    .lead {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.85;
-    }
-
-    .link-stack {
-      display: grid;
-      gap: 12px;
-    }
-
-    .link-card {
+    .links {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 15px 16px;
-      border-radius: 20px;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
       text-decoration: none;
       color: white;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.10);
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
-      backdrop-filter: blur(16px);
+      transition: 0.3s;
     }
 
-    .link-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      border-color: rgba(118,214,255,0.35);
-      box-shadow: 0 18px 34px rgba(118,214,255,0.10);
-      background: linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05));
+    .link:hover {
+      transform: translateX(6px);
+      background: rgba(255,255,255,0.08);
     }
 
-    .link-left {
+    /* RIGHT SIDE (FLOATING IMAGE) */
+    .right {
+      width: 50%;
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 14px;
-      min-width: 0;
+      justify-content: center;
     }
 
-    .icon {
-      width: 50px;
-      height: 50px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      font-weight: 800;
-      color: white;
-      background: linear-gradient(135deg, rgba(118,214,255,0.20), rgba(159,136,255,0.18), rgba(255,255,255,0.10));
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    .image-wrapper {
+      position: relative;
+      animation: float 4s ease-in-out infinite;
     }
 
-    .link-title {
-      font-weight: 700;
-      margin-bottom: 4px;
+    .image-wrapper img {
+      max-height: 85vh;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8));
     }
 
-    .link-sub {
-      color: var(--soft);
-      font-size: 0.92rem;
-      overflow-wrap: anywhere;
+    /* Glow under feet */
+    .glow {
+      position: absolute;
+      bottom: 0;
+      width: 200px;
+      height: 60px;
+      background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+      filter: blur(20px);
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    .arrow {
-      color: var(--soft);
-      font-size: 1.1rem;
-      flex-shrink: 0;
+    /* FLOAT ANIMATION */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
     }
 
-    .offer-grid {
-      display: grid;
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    .offer {
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 28px 10px 6px;
-      color: var(--soft);
-      font-size: 0.93rem;
-    }
-
-    @media (max-width: 980px) {
-      .hero {
-        min-height: auto;
-        padding-top: 12px;
-      }
-
-      .hero-content {
-        margin-top: 180px;
-      }
-
-      .stats-ribbon,
-      .cards {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 720px) {
-      body {
-        background:
-          linear-gradient(to bottom, rgba(2,5,12,0.52), rgba(2,5,12,0.84) 45%, rgba(2,5,12,0.97) 100%),
-          url('assets/profile.jpg') center top/cover no-repeat fixed;
-      }
-
-      .shell {
-        padding: 16px 14px 34px;
-      }
-
-      .hero-content {
-        margin-top: 130px;
-      }
-
-      .stats-ribbon,
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-row {
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .container {
         flex-direction: column;
       }
 
-      .btn {
+      .left, .right {
         width: 100%;
+        text-align: center;
       }
 
-      .card {
-        padding: 18px;
-        border-radius: 24px;
+      .right img {
+        max-height: 60vh;
+      }
+
+      .buttons {
+        justify-content: center;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="grain"></div>
+  <div class="container">
 
-  <div class="shell">
-    <div class="nav">
-      <div class="brand">
-        <div class="brand-mark"></div>
-        <div>
-          <div class="brand-name">TheAdamEffect</div>
-          <div class="brand-sub">Creator Portfolio / Cinematic Link Hub</div>
-        </div>
+    <div class="left">
+      <h1>Adam<br>Syed</h1>
+
+      <p class="sub">
+        A cinematic creator presence. Content, identity, and brand all in one place.
+      </p>
+
+      <div class="buttons">
+        <a href="https://www.tiktok.com/@theadameffect" target="_blank" class="btn btn-primary">TikTok</a>
+        <a href="mailto:theadameffect98@gmail.com" class="btn btn-secondary">Contact</a>
+      </div>
+
+      <div class="links">
+        <a class="link" href="https://www.instagram.com/theadameffect/" target="_blank">Instagram</a>
+        <a class="link" href="https://www.youtube.com/results?search_query=theadameffect" target="_blank">YouTube</a>
+        <a class="link" href="https://github.com/AdamSyed98" target="_blank">GitHub</a>
       </div>
     </div>
 
-    <section class="hero">
-      <div class="hero-content">
-        <div class="pill">
-          <span class="pill-dot"></span>
-          @theadameffect · creator · storyteller · digital brand
-        </div>
-
-        <h1>
-          <span class="headline-glow">Adam</span><br>
-          <span class="headline-glow">Syed</span>
-        </h1>
-
-        <p class="sub">
-          A dark, cinematic creator experience built around presence, mystery, and premium energy. This is where brands, recruiters, and followers instantly see the world of TheAdamEffect.
-        </p>
-
-        <div class="cta-row">
-          <a class="btn btn-primary" href="https://www.tiktok.com/@theadameffect" target="_blank">Enter TikTok</a>
-          <a class="btn btn-secondary" href="mailto:theadameffect98@gmail.com">Work With Me</a>
-        </div>
-
-        <div class="stats-ribbon">
-          <div class="stat">
-            <strong>300K+</strong>
-            <span>TikTok followers built through consistent short-form storytelling.</span>
-          </div>
-          <div class="stat">
-            <strong>32M+</strong>
-            <span>Total views from content designed to stop the scroll.</span>
-          </div>
-          <div class="stat">
-            <strong>Multi-Platform</strong>
-            <span>TikTok, Instagram, YouTube, and GitHub in one polished hub.</span>
-          </div>
-          <div class="stat">
-            <strong>Brand Ready</strong>
-            <span>Open to creator partnerships, UGC, collaborations, and campaigns.</span>
-          </div>
-        </div>
+    <div class="right">
+      <div class="image-wrapper">
+        <img src="assets/profile.jpg" alt="Adam" />
+        <div class="glow"></div>
       </div>
-    </section>
-
-    <section class="cards">
-      <div class="card">
-        <h2>About My Brand</h2>
-        <p class="lead">
-          TheAdamEffect is built on confidence, strong visual identity, and content that feels memorable the second you land on it. Instead of a plain list of links, this page turns my digital presence into a full brand moment.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>Find Me Everywhere</h2>
-        <div class="link-stack">
-          <a class="link-card" href="https://www.tiktok.com/@theadameffect" target="_blank">
-            <div class="link-left">
-              <div class="icon">T</div>
-              <div>
-                <div class="link-title">TikTok</div>
-                <div class="link-sub">@theadameffect</div>
-              </div>
-            </div>
-            <div class="arrow">↗</div>
-          </a>
-
-          <a class="link-card" href="https://www.instagram.com/theadameffect/" target="_blank">
-            <div class="link-left">
-              <div class="icon">I</div>
-              <div>
-                <div class="link-title">Instagram</div>
-                <div class="link-sub">@theadameffect</div>
-              </div>
-            </div>
-            <div class="arrow">↗</div>
-          </a>
-
-          <a class="link-card" href="https://www.youtube.com/results?search_query=theadameffect" target="_blank">
-            <div class="link-left">
-              <div class="icon">Y</div>
-              <div>
-                <div class="link-title">YouTube</div>
-                <div class="link-sub">Search TheAdamEffect</div>
-              </div>
-            </div>
-            <div class="arrow">↗</div>
-          </a>
-
-          <a class="link-card" href="https://github.com/AdamSyed98" target="_blank">
-            <div class="link-left">
-              <div class="icon">G</div>
-              <div>
-                <div class="link-title">GitHub</div>
-                <div class="link-sub">AdamSyed98</div>
-              </div>
-            </div>
-            <div class="arrow">↗</div>
-          </a>
-
-          <a class="link-card" href="mailto:theadameffect98@gmail.com">
-            <div class="link-left">
-              <div class="icon">@</div>
-              <div>
-                <div class="link-title">Email</div>
-                <div class="link-sub">theadameffect98@gmail.com</div>
-              </div>
-            </div>
-            <div class="arrow">↗</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>What I Bring</h2>
-        <div class="offer-grid">
-          <div class="offer">Short-form content with strong on-camera presence and recognizable personality.</div>
-          <div class="offer">UGC-style brand content, creator collaborations, and audience-first storytelling.</div>
-          <div class="offer">A polished digital identity that feels cinematic, high-end, and memorable.</div>
-          <div class="offer">A mix of creative instinct, social media awareness, and professional communication.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Why This Hits Different</h2>
-        <p class="lead">
-          Your actual image drives the whole experience here. The spotlight background, luxury glass panels, soft glow, and dark atmosphere make the site feel more like an artist landing page than a regular portfolio.
-        </p>
-      </div>
-    </section>
-
-    <div class="footer">
-      TheAdamEffect · built with HTML + CSS · powered by your own image and GitHub Pages
     </div>
+
   </div>
 </body>
 </html>
-
-    
